@@ -139,3 +139,57 @@ fpsButton.MouseButton1Click:Connect(function()
         print("تم تشغيل سكربت زيادة الفريمات بنجاح!")
     end
 end)
+
+-- تعريف وظيفة إضافة التوهج واسم اللاعب إلى الشخصية
+local function addGlowAndNameToPlayer(player)
+    -- تأكد من وجود الشخصية الخاصة باللاعب
+    if player.Character then
+        -- الحصول على النموذج الرئيسي في الشخصية
+        local character = player.Character
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        
+        if humanoidRootPart then
+            -- إضافة توهج أحمر حول الشخصية
+            local highlight = Instance.new("Highlight")
+            highlight.Adornee = character
+            highlight.FillColor = Color3.new(0.5, 0, 0) -- لون أحمر غامق
+            highlight.FillTransparency = 0.2 -- تقليل الشفافية للحصول على توهج قوي
+            highlight.OutlineColor = Color3.new(0.5, 0, 0)
+            highlight.OutlineTransparency = 0
+            highlight.Parent = character
+            
+            -- إضافة اسم اللاعب فوق الرأس مع حجم نص متوسط
+            local billboard = Instance.new("BillboardGui")
+            billboard.Adornee = humanoidRootPart
+            billboard.Size = UDim2.new(3, 0, 1, 0)
+            billboard.StudsOffset = Vector3.new(0, 3, 0)
+            billboard.AlwaysOnTop = true
+            billboard.Parent = character
+            
+            local nameLabel = Instance.new("TextLabel")
+            nameLabel.Size = UDim2.new(1, 0, 1, 0)
+            nameLabel.BackgroundTransparency = 1
+            nameLabel.Text = player.Name
+            nameLabel.TextColor3 = Color3.new(0, 0, 1) -- لون أزرق
+            nameLabel.TextStrokeTransparency = 0.5
+            nameLabel.Font = Enum.Font.SourceSansBold
+            nameLabel.TextSize = 16 -- الحجم المتوسط
+            nameLabel.Parent = billboard
+        end
+    end
+end
+
+-- حدث تشغيل عند دخول لاعب جديد إلى السيرفر
+game.Players.PlayerAdded:Connect(function(player)
+    -- إضافة التوهج واسم اللاعب عند انضمام اللاعب
+    player.CharacterAdded:Connect(function()
+        addGlowAndNameToPlayer(player)
+    end)
+end)
+
+-- إضافة التوهج واسم اللاعب للاعبين الموجودين حالياً عند تشغيل السكربت
+for _, player in ipairs(game.Players:GetPlayers()) do
+    if player.Character then
+        addGlowAndNameToPlayer(player)
+    end
+end
