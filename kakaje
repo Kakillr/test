@@ -1,0 +1,141 @@
+-- تهيئة الواجهة وخصائص الأزرار
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "KA_KILLR"
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- خلفية سوداء صغيرة
+local backgroundFrame = Instance.new("Frame")
+backgroundFrame.Size = UDim2.new(0, 300, 0, 300)
+backgroundFrame.Position = UDim2.new(0.5, -150, 0.5, -150)
+backgroundFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+backgroundFrame.BorderSizePixel = 2
+backgroundFrame.BorderColor3 = Color3.fromRGB(138, 43, 226)
+backgroundFrame.Active = true
+backgroundFrame.Draggable = true
+backgroundFrame.Parent = screenGui
+
+-- إضافة تأثيرات على الإطار
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 10)
+uiCorner.Parent = backgroundFrame
+
+-- زر إغلاق الواجهة
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -35, 0, 5)
+closeButton.Text = "X"
+closeButton.BackgroundColor3 = Color3.new(0.8, 0, 0)
+closeButton.TextColor3 = Color3.new(1, 1, 1)
+closeButton.Parent = backgroundFrame
+
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+-- عنوان الهاك
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0, 30)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.Text = "KA_KILLR"
+titleLabel.BackgroundTransparency = 1
+titleLabel.TextColor3 = Color3.fromRGB(138, 43, 226)
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.TextSize = 22
+titleLabel.Parent = backgroundFrame
+
+-- زر تشغيل/إيقاف الكشف
+local toggleGlowButton = Instance.new("TextButton")
+toggleGlowButton.Size = UDim2.new(0, 200, 0, 40)
+toggleGlowButton.Position = UDim2.new(0.5, -100, 0, 50)
+toggleGlowButton.Text = "تشغيل الكشف"
+toggleGlowButton.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+toggleGlowButton.TextColor3 = Color3.new(1, 1, 1)
+toggleGlowButton.BorderColor3 = Color3.fromRGB(138, 43, 226)
+toggleGlowButton.BorderSizePixel = 2
+toggleGlowButton.Parent = backgroundFrame
+
+-- زر زيادة فريمات
+local fpsButton = Instance.new("TextButton")
+fpsButton.Size = UDim2.new(0, 200, 0, 40)
+fpsButton.Position = UDim2.new(0.5, -100, 0, 100)
+fpsButton.Text = "زيادة فريمات"
+fpsButton.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+fpsButton.TextColor3 = Color3.new(1, 1, 1)
+fpsButton.BorderColor3 = Color3.fromRGB(138, 43, 226)
+fpsButton.BorderSizePixel = 2
+fpsButton.Parent = backgroundFrame
+
+-- قارئ Ping
+local pingLabel = Instance.new("TextLabel")
+pingLabel.Size = UDim2.new(0, 200, 0, 40)
+pingLabel.Position = UDim2.new(0.5, -100, 0, 150)
+pingLabel.Text = "Ping: ..."
+pingLabel.BackgroundTransparency = 1
+pingLabel.TextColor3 = Color3.new(1, 1, 1)
+pingLabel.Parent = backgroundFrame
+
+-- قارئ FPS
+local frameRateLabel = Instance.new("TextLabel")
+frameRateLabel.Size = UDim2.new(0, 200, 0, 40)
+frameRateLabel.Position = UDim2.new(0.5, -100, 0, 200)
+frameRateLabel.Text = "FPS: ..."
+frameRateLabel.BackgroundTransparency = 1
+frameRateLabel.TextColor3 = Color3.new(1, 1, 1)
+frameRateLabel.Parent = backgroundFrame
+
+-- تحديث Ping و FPS كل ثانية
+spawn(function()
+    while true do
+        local statsService = game:GetService("Stats")
+        local pingValue = statsService.Network.ServerStatsItem["Data Ping"]:GetValueString()
+        pingLabel.Text = "Ping: " .. pingValue .. " ms"
+
+        local fpsValue = statsService.Workspace.FPS:GetValueString()
+        frameRateLabel.Text = "FPS: " .. fpsValue
+
+        wait(1)
+    end
+end)
+
+-- تشغيل/إيقاف الكشف
+local glowEnabled = false
+toggleGlowButton.MouseButton1Click:Connect(function()
+    glowEnabled = not glowEnabled
+    toggleGlowButton.Text = glowEnabled and "إيقاف الكشف" or "تشغيل الكشف"
+
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player.Character then
+            local character = player.Character
+            local highlight = character:FindFirstChildOfClass("Highlight")
+            if glowEnabled then
+                if not highlight then
+                    local newHighlight = Instance.new("Highlight")
+                    newHighlight.Adornee = character
+                    newHighlight.FillColor = Color3.new(0.5, 0, 0)
+                    newHighlight.FillTransparency = 0.2
+                    newHighlight.OutlineColor = Color3.new(0.5, 0, 0)
+                    newHighlight.OutlineTransparency = 0
+                    newHighlight.Parent = character
+                end
+            else
+                if highlight then
+                    highlight:Destroy()
+                end
+            end
+        end
+    end
+end)
+
+-- وظيفة زر زيادة الفريمات
+fpsButton.MouseButton1Click:Connect(function()
+    local scriptUrl = "https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost"
+    local success, err = pcall(function()
+        loadstring(game:HttpGet(scriptUrl))()
+    end)
+
+    if not success then
+        warn("Error loading script: " .. err)
+    else
+        print("تم تشغيل سكربت زيادة الفريمات بنجاح!")
+    end
+end)
