@@ -1,3 +1,97 @@
+-- تهيئة الواجهة وخصائص الأزرار
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "KA_KILLR"  -- تغيير اسم الواجهة
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- خلفية سوداء صغيرة
+local backgroundFrame = Instance.new("Frame")
+backgroundFrame.Size = UDim2.new(0, 250, 0, 200) -- حجم الفريم
+backgroundFrame.Position = UDim2.new(0.5, -125, 0.5, -100)
+backgroundFrame.BackgroundColor3 = Color3.new(0, 0, 0)  -- لون الخلفية الأسود
+backgroundFrame.Active = true
+backgroundFrame.Draggable = true -- جعل الواجهة قابلة للتحريك
+backgroundFrame.Parent = screenGui
+
+-- عنوان الهاك
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0, 30)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.Text = "KA_KILLR"
+titleLabel.BackgroundTransparency = 1
+titleLabel.TextColor3 = Color3.fromRGB(138, 43, 226) -- لون النص بنفسجي
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.TextSize = 20
+titleLabel.Parent = backgroundFrame
+
+-- اسم اللاعب
+local playerNameLabel = Instance.new("TextLabel")
+playerNameLabel.Size = UDim2.new(1, 0, 0, 30)
+playerNameLabel.Position = UDim2.new(0, 0, 0, 30)
+playerNameLabel.Text = "اسم اللاعب: " .. game.Players.LocalPlayer.Name
+playerNameLabel.BackgroundTransparency = 1
+playerNameLabel.TextColor3 = Color3.new(1, 0, 0) -- لون النص أحمر
+playerNameLabel.Font = Enum.Font.SourceSans
+playerNameLabel.TextSize = 18
+playerNameLabel.Parent = backgroundFrame
+
+-- زر زيادة فريمات
+local fpsButton = Instance.new("TextButton")
+fpsButton.Size = UDim2.new(0, 200, 0, 40)
+fpsButton.Position = UDim2.new(0.5, -100, 0, 70)
+fpsButton.Text = "زيادة فريمات"
+fpsButton.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)  -- لون الزر الأسود الداكن
+fpsButton.TextColor3 = Color3.new(1, 1, 1) -- لون النص الأبيض
+fpsButton.BorderColor3 = Color3.fromRGB(138, 43, 226) -- حواف بنفسجية
+fpsButton.BorderSizePixel = 2
+fpsButton.Parent = backgroundFrame
+
+-- قارئ Ping
+local pingLabel = Instance.new("TextLabel")
+pingLabel.Size = UDim2.new(0, 200, 0, 40)
+pingLabel.Position = UDim2.new(0.5, -100, 0, 120)
+pingLabel.Text = "Ping: ..."
+pingLabel.BackgroundTransparency = 1  -- جعل الخلفية شفافة
+pingLabel.TextColor3 = Color3.new(1, 1, 1) -- لون النص الأبيض
+pingLabel.Parent = backgroundFrame
+
+-- قارئ FPS
+local frameRateLabel = Instance.new("TextLabel")
+frameRateLabel.Size = UDim2.new(0, 200, 0, 40)
+frameRateLabel.Position = UDim2.new(0.5, -100, 0, 160) -- تغيير الموقع ليناسب العناصر
+frameRateLabel.BackgroundTransparency = 1
+frameRateLabel.TextColor3 = Color3.new(1, 1, 1) -- لون النص أبيض
+frameRateLabel.Font = Enum.Font.SourceSans
+frameRateLabel.TextSize = 20
+frameRateLabel.Text = "FPS: ..."
+frameRateLabel.Parent = backgroundFrame
+
+-- تحديث Ping و FPS كل ثانية
+spawn(function()
+    while true do
+        local pingValue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+        pingLabel.Text = "Ping: " .. pingValue .. " ms"
+        
+        local fpsValue = game:GetService("Stats").Workspace.FPS:GetValueString() -- قراءة الفريمات
+        frameRateLabel.Text = "FPS: " .. fpsValue
+
+        wait(1)
+    end
+end)
+
+-- وظيفة الزر الأول لزيادة الفريمات
+fpsButton.MouseButton1Click:Connect(function()
+    local scriptUrl = "https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost"
+    local success, err = pcall(function()
+        loadstring(game:HttpGet(scriptUrl))()
+    end)
+
+    if not success then
+        warn("Error loading script: " .. err)
+    else
+        print("تم تشغيل سكربت زيادة الفريمات بنجاح!")
+    end
+end)
+
 -- تعريف وظيفة إضافة التوهج واسم اللاعب إلى الشخصية
 local function addGlowAndNameToPlayer(player)
     -- تأكد من وجود الشخصية الخاصة باللاعب
@@ -47,6 +141,16 @@ end)
 
 -- تشغيل/إيقاف الكشف
 local glowEnabled = false
+local toggleGlowButton = Instance.new("TextButton")
+toggleGlowButton.Size = UDim2.new(0, 200, 0, 40)
+toggleGlowButton.Position = UDim2.new(0.5, -100, 0, 30)
+toggleGlowButton.Text = "تشغيل الكشف"
+toggleGlowButton.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)  -- لون الزر الأسود الداكن
+toggleGlowButton.TextColor3 = Color3.new(1, 1, 1) -- لون النص الأبيض
+toggleGlowButton.BorderColor3 = Color3.fromRGB(138, 43, 226) -- حواف بنفسجية
+toggleGlowButton.BorderSizePixel = 2
+toggleGlowButton.Parent = screenGui
+
 toggleGlowButton.MouseButton1Click:Connect(function()
     glowEnabled = not glowEnabled
     toggleGlowButton.Text = glowEnabled and "إيقاف الكشف" or "تشغيل الكشف"
