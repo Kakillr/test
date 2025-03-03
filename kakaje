@@ -1,211 +1,165 @@
--- تهيئة الواجهة وخصائص الأزرار
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "KA_KILLR"  -- تغيير اسم الواجهة
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+-- Gui to Lua
+-- Version: 3.2
 
--- خلفية سوداء صغيرة
-local backgroundFrame = Instance.new("Frame")
-backgroundFrame.Size = UDim2.new(0, 250, 0, 200) -- حجم الفريم
-backgroundFrame.Position = UDim2.new(0.5, -125, 0.5, -100)
-backgroundFrame.BackgroundColor3 = Color3.new(0, 0, 0)  -- لون الخلفية الأسود
-backgroundFrame.Active = true
-backgroundFrame.Draggable = true -- جعل الواجهة قابلة للتحريك
-backgroundFrame.Parent = screenGui
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local HttpService = game:GetService("HttpService")
 
--- عنوان الهاك
-local titleLabel = Instance.new("TextLabel")
-titleLabel.Size = UDim2.new(1, 0, 0, 30)
-titleLabel.Position = UDim2.new(0, 0, 0, 0)
-titleLabel.Text = "KA_KILLR"
-titleLabel.BackgroundTransparency = 1
-titleLabel.TextColor3 = Color3.fromRGB(138, 43, 226) -- لون النص بنفسجي
-titleLabel.Font = Enum.Font.SourceSansBold
-titleLabel.TextSize = 20
-titleLabel.Parent = backgroundFrame
+local ScreenGui = Instance.new("ScreenGui")
+local Executor = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local TopBar = Instance.new("TextLabel")
+local UICorner_2 = Instance.new("UICorner")
+local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+local Down = Instance.new("Frame")
+local UICorner_3 = Instance.new("UICorner")
+local UIAspectRatioConstraint_2 = Instance.new("UIAspectRatioConstraint")
+local EditorScroller = Instance.new("ScrollingFrame")
+local Editor = Instance.new("TextBox")
+local UIAspectRatioConstraint_3 = Instance.new("UIAspectRatioConstraint")
+local UIAspectRatioConstraint_4 = Instance.new("UIAspectRatioConstraint")
+local ScriptTab = Instance.new("Frame")
+local UICorner_4 = Instance.new("UICorner")
+local UIAspectRatioConstraint_5 = Instance.new("UIAspectRatioConstraint")
+local Execute = Instance.new("TextButton")
+local UICorner_5 = Instance.new("UICorner")
+local Clear = Instance.new("TextButton")
+local UICorner_6 = Instance.new("UICorner")
+local Save = Instance.new("TextButton")
+local UICorner_7 = Instance.new("UICorner")
 
--- اسم اللاعب
-local playerNameLabel = Instance.new("TextLabel")
-playerNameLabel.Size = UDim2.new(1, 0, 0, 30)
-playerNameLabel.Position = UDim2.new(0, 0, 0, 30)
-playerNameLabel.Text = "اسم اللاعب: " .. game.Players.LocalPlayer.Name
-playerNameLabel.BackgroundTransparency = 1
-playerNameLabel.TextColor3 = Color3.new(1, 0, 0) -- لون النص أحمر
-playerNameLabel.Font = Enum.Font.SourceSans
-playerNameLabel.TextSize = 18
-playerNameLabel.Parent = backgroundFrame
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
--- زر زيادة فريمات
-local fpsButton = Instance.new("TextButton")
-fpsButton.Size = UDim2.new(0, 200, 0, 40)
-fpsButton.Position = UDim2.new(0.5, -100, 0, 70)
-fpsButton.Text = "زيادة فريمات"
-fpsButton.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)  -- لون الزر الأسود الداكن
-fpsButton.TextColor3 = Color3.new(1, 1, 1) -- لون النص الأبيض
-fpsButton.BorderColor3 = Color3.fromRGB(138, 43, 226) -- حواف بنفسجية
-fpsButton.BorderSizePixel = 2
-fpsButton.Parent = backgroundFrame
+Executor.Name = "Ghost Killr"
+Executor.Parent = ScreenGui
+Executor.BackgroundColor3 = Color3.fromRGB(12, 4, 20)
+Executor.BackgroundTransparency = 0.120
+Executor.Position = UDim2.new(0.307999998, 0, 0.26199996, 0)
+Executor.Size = UDim2.new(0, 481, 0, 287)
+Executor.Active = true
+Executor.Draggable = true
 
--- قارئ Ping
-local pingLabel = Instance.new("TextLabel")
-pingLabel.Size = UDim2.new(0, 200, 0, 40)
-pingLabel.Position = UDim2.new(0.5, -100, 0, 120)
-pingLabel.Text = "Ping: ..."
-pingLabel.BackgroundTransparency = 1  -- جعل الخلفية شفافة
-pingLabel.TextColor3 = Color3.new(1, 1, 1) -- لون النص الأبيض
-pingLabel.Parent = backgroundFrame
+UICorner.Parent = Executor
 
--- قارئ FPS
-local frameRateLabel = Instance.new("TextLabel")
-frameRateLabel.Size = UDim2.new(0, 200, 0, 40)
-frameRateLabel.Position = UDim2.new(0.5, -100, 0, 160) -- تغيير الموقع ليناسب العناصر
-frameRateLabel.BackgroundTransparency = 1
-frameRateLabel.TextColor3 = Color3.new(1, 1, 1) -- لون النص أبيض
-frameRateLabel.Font = Enum.Font.SourceSans
-frameRateLabel.TextSize = 20
-frameRateLabel.Text = "FPS: ..."
-frameRateLabel.Parent = backgroundFrame
+TopBar.Name = "TopBar"
+TopBar.Parent = Executor
+TopBar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TopBar.BackgroundTransparency = 0.600
+TopBar.Size = UDim2.new(0, 481, 0, 35)
+TopBar.Font = Enum.Font.SourceSansItalic
+TopBar.Text = "Ghost Killr Executor"
+TopBar.TextColor3 = Color3.fromRGB(255, 255, 255)
+TopBar.TextSize = 25.000
 
--- تحديث Ping و FPS كل ثانية
-spawn(function()
-    while true do
-        local pingValue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
-        pingLabel.Text = "Ping: " .. pingValue .. " ms"
-        
-        local fpsValue = game:GetService("Stats").Workspace.FPS:GetValueString() -- قراءة الفريمات
-        frameRateLabel.Text = "FPS: " .. fpsValue
+UICorner_2.Parent = TopBar
+UIAspectRatioConstraint.Parent = TopBar
 
-        wait(1)
-    end
+-- دعم تغيير الحجم يدوياً
+local function ResizeUI()
+	Executor.Size = UDim2.new(0, 500, 0, 320)
+end
+UserInputService.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton2 then
+		ResizeUI()
+	end
 end)
 
--- وظيفة الزر الأول لزيادة الفريمات
-fpsButton.MouseButton1Click:Connect(function()
-    local scriptUrl = "https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost"
-    local success, err = pcall(function()
-        loadstring(game:HttpGet(scriptUrl))()
-    end)
+-- تأثيرات الضغط على الأزرار
+local function ButtonEffect(button)
+	local tween = TweenService:Create(button, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0.3})
+	button.MouseButton1Down:Connect(function()
+		tween:Play()
+	end)
+	button.MouseButton1Up:Connect(function()
+		TweenService:Create(button, TweenInfo.new(0.2), {BackgroundTransparency = 0.6}):Play()
+	end)
+end
+ButtonEffect(Execute)
+ButtonEffect(Clear)
+ButtonEffect(Save)
 
-    if not success then
-        warn("Error loading script: " .. err)
-    else
-        print("تم تشغيل سكربت زيادة الفريمات بنجاح!")
-    end
-end)
-
--- تعريف وظيفة إضافة التوهج واسم اللاعب إلى الشخصية
-local function addGlowAndNameToPlayer(player)
-    -- تأكد من وجود الشخصية الخاصة باللاعب
-    if player.Character then
-        -- الحصول على النموذج الرئيسي في الشخصية
-        local character = player.Character
-        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-        
-        if humanoidRootPart then
-            -- إضافة توهج أحمر حول الشخصية
-            local highlight = Instance.new("Highlight")
-            highlight.Adornee = character
-            highlight.FillColor = Color3.new(0.5, 0, 0) -- لون أحمر غامق
-            highlight.FillTransparency = 0.2 -- تقليل الشفافية للحصول على توهج قوي
-            highlight.OutlineColor = Color3.new(0.5, 0, 0)
-            highlight.OutlineTransparency = 0
-            highlight.Parent = character
-            
-            -- إضافة اسم اللاعب فوق الرأس مع حجم نص متوسط
-            local billboard = Instance.new("BillboardGui")
-            billboard.Adornee = humanoidRootPart
-            billboard.Size = UDim2.new(3, 0, 1, 0)
-            billboard.StudsOffset = Vector3.new(0, 3, 0)
-            billboard.AlwaysOnTop = true
-            billboard.Parent = character
-            
-            local nameLabel = Instance.new("TextLabel")
-            nameLabel.Size = UDim2.new(1, 0, 1, 0)
-            nameLabel.BackgroundTransparency = 1
-            nameLabel.Text = player.Name
-            nameLabel.TextColor3 = Color3.new(0, 0, 1) -- لون أزرق
-            nameLabel.TextStrokeTransparency = 0.5
-            nameLabel.Font = Enum.Font.SourceSansBold
-            nameLabel.TextSize = 16 -- الحجم المتوسط
-            nameLabel.Parent = billboard
-        end
-    end
+-- تحميل أكثر من سكربت
+local function LoadScripts(scriptTable)
+	for _, scriptText in pairs(scriptTable) do
+		assert(loadstring(scriptText))()
+	end
 end
 
--- حدث تشغيل عند دخول لاعب جديد إلى السيرفر
-game.Players.PlayerAdded:Connect(function(player)
-    -- إضافة التوهج واسم اللاعب عند انضمام اللاعب
-    player.CharacterAdded:Connect(function()
-        addGlowAndNameToPlayer(player)
-    end)
+-- زر تنفيذ
+Execute.MouseButton1Click:Connect(function()
+	assert(loadstring(Editor.Text))()
 end)
 
--- تشغيل/إيقاف الكشف
-local glowEnabled = false
-local toggleGlowButton = Instance.new("TextButton")
-toggleGlowButton.Size = UDim2.new(0, 200, 0, 40)
-toggleGlowButton.Position = UDim2.new(0.5, -100, 0, 30)
-toggleGlowButton.Text = "تشغيل الكشف"
-toggleGlowButton.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)  -- لون الزر الأسود الداكن
-toggleGlowButton.TextColor3 = Color3.new(1, 1, 1) -- لون النص الأبيض
-toggleGlowButton.BorderColor3 = Color3.fromRGB(138, 43, 226) -- حواف بنفسجية
-toggleGlowButton.BorderSizePixel = 2
-toggleGlowButton.Parent = screenGui
-
-toggleGlowButton.MouseButton1Click:Connect(function()
-    glowEnabled = not glowEnabled
-    toggleGlowButton.Text = glowEnabled and "إيقاف الكشف" or "تشغيل الكشف"
-
-    for _, player in ipairs(game.Players:GetPlayers()) do
-        if player.Character then
-            local character = player.Character
-            local highlight = character:FindFirstChildOfClass("Highlight")
-            local billboard = character:FindFirstChildOfClass("BillboardGui")
-
-            if glowEnabled then
-                if not highlight then
-                    highlight = Instance.new("Highlight")
-                    highlight.Adornee = character
-                    highlight.FillColor = Color3.new(0.5, 0, 0)
-                    highlight.FillTransparency = 0.2
-                    highlight.OutlineColor = Color3.new(0.5, 0, 0)
-                    highlight.OutlineTransparency = 0
-                    highlight.Parent = character
-                end
-
-                if not billboard then
-                    billboard = Instance.new("BillboardGui")
-                    billboard.Adornee = character:FindFirstChild("HumanoidRootPart")
-                    billboard.Size = UDim2.new(3, 0, 1, 0)
-                    billboard.StudsOffset = Vector3.new(0, 3, 0)
-                    billboard.AlwaysOnTop = true
-                    billboard.Parent = character
-                    
-                    local nameLabel = Instance.new("TextLabel")
-                    nameLabel.Size = UDim2.new(1, 0, 1, 0)
-                    nameLabel.BackgroundTransparency = 1
-                    nameLabel.Text = player.Name
-                    nameLabel.TextColor3 = Color3.new(0, 0, 1) -- لون أزرق
-                    nameLabel.TextStrokeTransparency = 0.5
-                    nameLabel.Font = Enum.Font.SourceSansBold
-                    nameLabel.TextSize = 16
-                    nameLabel.Parent = billboard
-                end
-            else
-                if highlight then
-                    highlight:Destroy()
-                end
-
-                if billboard then
-                    billboard:Destroy()
-                end
-            end
-        end
-    end
+-- زر الحذف
+Clear.MouseButton1Click:Connect(function()
+	Editor.Text = ""
 end)
 
--- إضافة التوهج واسم اللاعب للاعبين الموجودين حالياً عند تشغيل السكربت
-for _, player in ipairs(game.Players:GetPlayers()) do
-    if player.Character then
-        addGlowAndNameToPlayer(player)
-    end
+-- زر الحفظ
+Save.MouseButton1Click:Connect(function()
+	local savedScript = Editor.Text
+	writefile("GhostKillrScript.lua", savedScript)
+end)
+
+-- سجل المحفوظات
+local history = {}
+local function AddToHistory(scriptText)
+	table.insert(history, scriptText)
 end
+
+-- التراجع والإعادة
+local undoStack, redoStack = {}, {}
+local function Undo()
+	if #undoStack > 0 then
+		table.insert(redoStack, Editor.Text)
+		Editor.Text = table.remove(undoStack)
+	end
+end
+local function Redo()
+	if #redoStack > 0 then
+		table.insert(undoStack, Editor.Text)
+		Editor.Text = table.remove(redoStack)
+	end
+end
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if not gameProcessed then
+		if input.KeyCode == Enum.KeyCode.Z and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+			Undo()
+		elseif input.KeyCode == Enum.KeyCode.Y and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+			Redo()
+		end
+	end
+end)
+
+-- مشاركة السكربت عبر QR Code
+local function GenerateQRCode(scriptText)
+	local encoded = HttpService:UrlEncode(scriptText)
+	return "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" .. encoded
+end
+
+-- إضافة تأثيرات Blur عند التشغيل
+local blur = Instance.new("BlurEffect", game.Lighting)
+blur.Size = 10
+
+-- دعم Syntax Highlighting
+Editor.TextWrapped = true
+Editor.TextScaled = true
+Editor.ClearTextOnFocus = false
+Editor.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+-- إضافة Dark Mode و Light Mode
+local function ToggleTheme(isDarkMode)
+	if isDarkMode then
+		Executor.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+		TopBar.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		Editor.TextColor3 = Color3.fromRGB(255, 255, 255)
+	else
+		Executor.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
+		TopBar.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+		Editor.TextColor3 = Color3.fromRGB(0, 0, 0)
+	end
+end
+
+print("Ghost Killr Executor Loaded!")
